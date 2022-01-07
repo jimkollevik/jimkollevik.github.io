@@ -2,11 +2,76 @@
 <html>
 <head>
 	<title>Jim Kollevik</title>
+	<meta charset="utf-8">
+	<meta content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<link rel="stylesheet" type="text/css" href="default.css">
+
+	<style type="text/css">
+		body {
+			color: #26150A;
+			font-size: 15px;
+			font-weight: 500;
+			line-height: 135%;
+		}
+		span, a {
+			color: #FE3C31;
+		}
+		.wrapper {
+			display: flex;
+			width: 50%;
+			margin-right: auto;
+			margin-left: auto;
+			justify-content: center;
+  			align-items: center;
+  			height: 100vh;
+		}
+		code {
+			display: block;
+		}
+		pre {
+			white-space: pre-wrap;
+  			word-wrap: break-word;
+  			text-align: justify;
+		}
+		@media screen and (max-width: 600px) {
+			.wrapper {
+				display: block;
+				width: 95%;
+			}
+		}
+	</style>
 </head>
 <body>
 
 <div class="wrapper">
-	<h1>Github page!</h1>
+		<pre>
+			<code>
+{
+  greeting: <span>'Hi, Hallå'</span>,
+  name: <span>'Jim Kollevik'</span>,
+  work: {
+    current_position: <span>'Lead Digital DevOps'</span>,
+    company: <span>'<a href="https://www.raddabarnen.se/" title="Save the children website" alt="go to save the children website" target="_blank">Save the Children SE</a>'</span>,
+    description: <span>'dafs'</span>
+  },
+  selected_work: <span>'I'm going to start bragging - just need to write down a compelling story first'</span>
+  interests: {
+    tags: [
+      <span>'Skiing'</span>,
+      <span>'Reading'</span>,
+      <span>'Minimalism'</span>,
+      <span>'<a href="https://sv.wikipedia.org/wiki/Jan_van_Haasteren" title="Jan van Haasteren wiki" alt="To Jan van Haasteren wiki page" target="_blank">Jan van Haasteran puzzles</a>'</span>,
+      <span>'Pizza'</span>
+    ]
+  },
+  contact: [
+    <span>'<a href="mailto:jim.kollevik@gmail.com" title="Email me" alt="my email jim.kollevik@gmail.com">jim.kollevik@gmail.com</a>'</span>,
+    <span>'<a href="https://www.linkedin.com/in/jim-kollevik-6a639628/" title="To my Linkedin site" alt="My linkedin site" target="_blank">Linkedin</a>'</span>
+  ]
+}
+			</code>
+		</pre>
 </div><!-- end wrapper -->
 
 </body>
