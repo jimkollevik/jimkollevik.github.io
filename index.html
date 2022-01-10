@@ -5,47 +5,42 @@
 	<meta charset="utf-8">
 	<meta content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"> 
 
 	<style type="text/css">
 		body {
-			color: #26150A;
-			font-size: 15px;
-			font-weight: 500;
-			line-height: 135%;
+			color: #000000;
+			font-family: 'Poppins', sans-serif;
+			font-size: 12px;
+			line-height: 24px;
 		}
 		span, a {
-			color: #22C219;
+			color: #A3A3A3;
+			text-decoration: none;
 		}
 		.wrapper {
-			display: flex;
-			width: 50%;
-			margin-right: auto;
-			margin-left: auto;
-			justify-content: center;
-  			align-items: center;
-  			height: 100vh;
+			max-width: 945px;
+			margin: 10% auto;
 		}
-		code {
-			display: block;
+		.col {
+			width: 275px;
+			float: left;
+			margin-right: 60px;
 		}
-		pre {
-			white-space: pre-wrap;
-  			word-wrap: break-word;
-  			text-align: justify;
+		.col:last-child {
+			margin-right: 0;
+		}
+		h4 {
+			font-size: 12px;
+			font-family: 'Poppins', sans-serif;
+			font-weight: 500;
 		}
 		@media screen and (max-width: 600px) {
 			.wrapper {
-				display: block;
-				width: 95%;
-			}
-		}
-		@media (prefers-color-scheme: dark) {
-			body {
-				background-color: #292929;
-				color: #F2B705;
-			}
-			span, a {
-				color: #22C219;
+				width: 324px;
+				margin: 2% auto;
 			}
 		}
 	</style>
@@ -53,33 +48,34 @@
 <body>
 
 <div class="wrapper">
-		<pre>
-			<code>
-{
-  greeting: <span>'Hallå'</span>,
-  name: <span>'Jim Kollevik'</span>,
-  work: {
-    current_position: <span>'Lead Digital DevOps'</span>,
-    company: <span>'<a href="https://www.raddabarnen.se/" title="Save the children website" alt="go to save the children website" target="_blank">Save the Children SE</a>'</span>,
-    description: <span>'Accountable for all digital development. Focusing on technology and Product Management'</span>
-  },
-  selected_work: <span>'I'm going to start bragging - just need to write down a compelling story first'</span>
-  interests: {
-    tags: [
-      <span>'Skiing'</span>,
-      <span>'Reading'</span>,
-      <span>'Minimalism'</span>,
-      <span>'<a href="https://sv.wikipedia.org/wiki/Jan_van_Haasteren" title="Jan van Haasteren wiki" alt="To Jan van Haasteren wiki page" target="_blank">Jan van Haasteran puzzles</a>'</span>,
-      <span>'Pizza'</span>
-    ]
-  },
-  contact: [
-    <span>'<a href="mailto:jim.kollevik@gmail.com" title="Email me" alt="my email jim.kollevik@gmail.com">jim.kollevik@gmail.com</a>'</span>,
-    <span>'<a href="https://www.linkedin.com/in/jim-kollevik-6a639628/" title="To my Linkedin site" alt="My linkedin site" target="_blank">Linkedin</a>'</span>
-  ]
-}
-			</code>
-		</pre>
+	<div class="col">
+		<h4>Hallå</h4>
+		<p>
+			My name is Jim. <span>I’m a pizza-loving minimalist</span> working as a Tech Product Manager.
+			I lead & support a team delivering <span>technical projects & development</span>. I enjoy baking my own pizza, skiing, read and solve comic puzzles. I occassionaly enjoy <span>coding small projects</span> that benefits, well me.
+		</p>
+		<p>
+			I live in Västerås with my <span>awesome partner</span> & <span>my beautiful son</span>. I work at Save the Children Sweden. <a href="">You can download my CV here</a>.
+			I’m a typical swede, meaning I’m analytical & like things simple & clean. I sometimes exercise & I like to learn new things.
+		</p>
+	</div><!-- end col -->
+	<div class="col">
+		<h4>Selected work</h4>
+		<p>
+			<span>I'm working on this list. Need to write a compelling story first.</span>
+		</p>
+		<!-- reference:
+		Easy peasy giving
+		Reporting dashboard
+		My leadership journey
+		Trend dashboard
+		-->
+	</div><!-- end col -->
+	<div class="col">
+		<h4>Get in touch</h4>
+		<a href="mailto:jim.kollevik@gmail.com" title="Email me" alt="my email jim.kollevik@gmail.com">jim.kollevik@gmail.com</a><br>
+   		<a href="https://www.linkedin.com/in/jim-kollevik-6a639628/" title="To my Linkedin site" alt="My linkedin profile" target="_blank">Linkedin</a>
+	</div><!-- end col -->
 </div><!-- end wrapper -->
 
 </body>
