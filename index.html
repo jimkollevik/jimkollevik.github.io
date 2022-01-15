@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Jim Kollevik</title>
-	<link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
 	<meta charset="utf-8">
 	<meta content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +21,7 @@
 			I lead & support a team delivering <span>technical projects & development</span>. I enjoy baking my own pizza, skiing, read and solve comic puzzles. I occassionaly enjoy <span>coding small projects</span> that benefits, well me.
 		</p>
 		<p>
-			I live in Västerås with my <span>awesome partner</span> & <span>my beautiful son</span>. I work at Save the Children Sweden. <a href="" style="display:none;">You can download my CV here</a>.
+			I live in Västerås with my <span>awesome partner</span> & <span>my beautiful son</span>. I work at Save the Children Sweden. <a href="" style="display:none;">You can download my CV here</a>
 			I'm entrepreneurial & strive for impact. I’m analytical & like things simple & clean. I sometimes exercise & I like to learn new things.
 		</p>
 	</div><!-- end col -->
@@ -53,7 +52,13 @@
 				var w = data.weather[0].main;
 					console.log(w);
 					if (w = 'Clouds') {
-						alert('Clouds')
+						var link = document.querySelector("link[rel~='icon']");
+						if (!link) {
+    						link = document.createElement('link');
+    						link.rel = 'icon';
+    						document.getElementsByTagName('head')[0].appendChild(link);
+							}
+						link.href = 'https://stackoverflow.com/favicon.ico';
 					}
 					else if (w = 'Rain') {
 						alert('Rain')
@@ -62,7 +67,13 @@
 						alert('Clear')
 					}
 					else {
-						console.log('Else...')
+						var link = document.querySelector("link[rel~='icon']");
+						if (!link) {
+    						link = document.createElement('link');
+    						link.rel = 'icon';
+    						document.getElementsByTagName('head')[0].appendChild(link);
+							}
+						link.href = 'favicon.png';
 					}
 			})
 		})
