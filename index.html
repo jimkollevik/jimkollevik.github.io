@@ -10,6 +10,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="default.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -45,5 +46,14 @@
    		<br><br>
 	</div><!-- end col -->
 </div><!-- end wrapper -->
+<script type="text/javascript">
+	var url = 'https://api.openweathermap.org/data/2.5/weather?q=vasteras&appid=622fb5222bf3fae1dda4616790d6bebb';
+		$(document).ready(function() {
+			$.getJSON(function(data) {
+				var w = data.weather.main;
+					console.log(w);
+			})
+		})
+</script>
 </body>
 </html>
