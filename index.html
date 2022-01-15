@@ -52,13 +52,13 @@
 			$.getJSON(url, function(data) {
 				var w = data.weather[0].main;
 					console.log(w);
-					if w = 'Clouds' {
+					if (w = 'Clouds') {
 						alert('Clouds')
 					}
-					if else w = 'Rain' {
+					else if (w = 'Rain') {
 						alert('Rain')
 					}
-					if else w = 'Clear sky' {
+					else if (w = 'Clear sky') {
 						alert('Clear')
 					}
 					else {
