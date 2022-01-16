@@ -45,38 +45,5 @@
    		<br><br>
 	</div><!-- end col -->
 </div><!-- end wrapper -->
-<script type="text/javascript">
-	var url = 'https://api.openweathermap.org/data/2.5/weather?q=vasteras&appid=622fb5222bf3fae1dda4616790d6bebb';
-		$(document).ready(function() {
-			$.getJSON(url, function(data) {
-				var w = data.weather[0].main;
-					console.log(w);
-					if (w = 'Clouds') {
-						var link = document.querySelector("link[rel~='icon']");
-						if (!link) {
-    						link = document.createElement('link');
-    						link.rel = 'icon';
-    						document.getElementsByTagName('head')[0].appendChild(link);
-							}
-						link.href = 'https://stackoverflow.com/favicon.ico';
-					}
-					else if (w = 'Rain') {
-						alert('Rain')
-					}
-					else if (w = 'Clear sky') {
-						alert('Clear')
-					}
-					else {
-						var link = document.querySelector("link[rel~='icon']");
-						if (!link) {
-    						link = document.createElement('link');
-    						link.rel = 'icon';
-    						document.getElementsByTagName('head')[0].appendChild(link);
-							}
-						link.href = 'favicon.png';
-					}
-			})
-		})
-</script>
 </body>
 </html>
