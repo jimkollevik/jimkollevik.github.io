@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style type="text/css">
+		* {
+			margin: 2.5px;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+
+<script type="text/javascript">
+	var uri ="https://api.github.com/repos/jimkollevik/jimkollevik.github.io/commits";
+		$.getJSON(uri, function(data) {
+			for (var i=0; i<100; i++) {
+				var sha = data[i].sha;
+				var verification = data[i].commit.verification.reason;
+				var msg = data[i].commit.message;
+					$("body").append("<span>Status: " + verification + "</span>", "<span>" + sha + "</span>", " <span>Message: " + msg + "</span>" + "<br>")
+			}
+		});
+</script>
+
+</body>
+</html>
