@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Jim Kollevik</title>
+	<link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
 	<meta charset="utf-8">
 	<meta content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +22,8 @@
 			I lead & support a team delivering <span>technical projects & development</span>. I enjoy baking my own pizza, skiing, read and solve comic puzzles. I occassionaly enjoy <span>coding small projects</span> that benefits, well me.
 		</p>
 		<p>
-			I live in Västerås with my <span>awesome partner</span> & <span>my beautiful son</span>. I work at Save the Children Sweden. <a href="" style="display:none;">You can download my CV here</a>
-			I'm entrepreneurial & strive for impact. I’m analytical & like things simple. I sometimes exercise & I like to learn new things.
+			I live in Västerås with my <span>awesome partner</span> & <span>my beautiful son</span>. I work at Save the Children Sweden. <a href="" style="display:none;">You can download my CV here</a>.
+			I'm entrepreneurial & strive for impact. I’m analytical & like things simple & clean. I sometimes exercise & I like to learn new things.
 		</p>
 	</div><!-- end col -->
 	<div class="col">
@@ -30,7 +31,6 @@
 		<p>
 			<a href="easy-donation-form.html">Easy donation form</a><br>
 			<a href="reporting-dashboard.html">Reporting dashboard</a><br>
-			<a href="discover-with-hertz.html">Discover with Hertz</a><br>
 		</p>
 		<!-- reference:
 		Easy peasy giving
@@ -46,5 +46,16 @@
    		<br><br>
 	</div><!-- end col -->
 </div><!-- end wrapper -->
+
+<script type="text/javascript">
+	console.log("Log changes: ")
+	var uri ="https://api.github.com/repos/jimkollevik/jimkollevik.github.io/commits";
+		$.getJSON(uri, function(data) {
+			for (var i=0; i<100; i++) {
+				var msg = data[i].commit.message;
+					console.log(i, msg)
+			}
+		});
+</script>
 </body>
 </html>
