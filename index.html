@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Jim Kollevik</title>
-	<link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
+	<link id="favicon" rel="shortcut icon" type="image/png" href="favicon.png" />
 	<meta charset="utf-8">
 	<meta content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,6 +57,17 @@
 					console.log(i, msg)
 			}
 		});
+	//change favicon based on weekday or not
+	var date = new Date();
+	var day = date.getDay();
+		if (day = 1||2||3||4||5) {
+			$("#favicon").attr("href","weekday_fav.png");
+			document.title = "Jim Kollevik | Working";
+		}
+		else {
+			$("#favicon").attr("href","holiday_fav.png");
+			document.title = "Jim Kollevik | Out of office";
+		}
 </script>
 </body>
 </html>
