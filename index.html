@@ -22,7 +22,7 @@
 			I lead & support a team delivering <span>technical projects & development</span>. I enjoy baking my own pizza, skiing, read and solve comic puzzles. I occassionaly enjoy <span>coding small projects</span> that benefits, well me.
 		</p>
 		<p>
-			I live in Västerås with my <span>awesome partner</span> & <span>my beautiful son</span>. I work at Save the Children Sweden. <a href="" style="display:none;">You can download my CV here</a>.
+			I live in Västerås with my <span>awesome partner</span> & <span>my beautiful son</span>. I work at Save the Children Sweden. <a href="" style="display:none;">You can download my CV here</a>
 			I'm entrepreneurial & strive for impact. I’m analytical & like things simple & clean. I sometimes exercise & I like to learn new things.
 		</p>
 	</div><!-- end col -->
@@ -61,13 +61,16 @@
 	var date = new Date();
 	var day = date.getDay();
 	var hour = date.getHours(); //0-23
-		if (day = 1||2||3||4||5 && hour > 7 && hour < 18) {
+	console.log(day, hour)
+		if (day < 5 && hour > 7 && hour < 18) {
 			$("#favicon").attr("href","weekday_fav.png");
 			document.title = "Jim Kollevik | Working";
+			console.log("working")
 		}
 		else {
 			$("#favicon").attr("href","holiday_fav.png");
 			document.title = "Jim Kollevik | Out of office";
+			console.log("not working")
 		}
 </script>
 </body>
