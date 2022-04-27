@@ -48,5 +48,20 @@
 		<a href="https://www.hertz.se/rentacar/misc/index.jsp?targetPage=svSE_upplev_med_hertz.jsp" target="_blank">To solution</a>
 	</div><!-- end col -->
 </div><!-- end wrapper -->
+	
+<script type="javascript">
+//change favicon based on weekday or not
+	var date = new Date();
+	var day = date.getDay();
+	var hour = date.getHours(); //0-23
+		if (day <= 5 && hour >= 8 && hour <= 17) {
+			$("#favicon").attr("href","weekday_fav.png");
+			document.title = "Jim Kollevik | Working";
+		}
+		else {
+			$("#favicon").attr("href","holiday_fav.png");
+			document.title = "Jim Kollevik | Out of office";
+		}
+</script>
 </body>
 </html>
