@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Jim Kollevik | Work: Recency, Frequency, Monetary</title>
+	<link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
+	<meta charset="utf-8">
+	<meta content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="default.css">
+
+
+	
+</head>
+<body>
+
+<div class="wrapper">
+	<div class="col">
+		<h4>Case</h4>
+		<p>
+    At Save the Children Sweden we had <span>different ways of giving</span>. One of them was a postal letter which talked to the giver about the work we
+    <span>were doing & asked for an one off donation</span>. The marketing department wanted to optimize the <span>segmentation of the target group & increase the revenue</span> & response rate from the product.
+		</p>
+		<p>
+    IT worked with marketing to implement a RFM model in the <span>data layer & push that data to the reporting tool & Marketing Automation tool</span> so marketing could segment on the RFM
+    score in both tools. <span>The RFM model & implementation</span> increased the response rate with 20% & number of givers increased with 16%. The revenue increased as well & the cost
+    decreased.
+		</p>
+	</div><!-- end col -->
+	<div class="col">
+		<h4>My role</h4>
+		<p>
+    Link between Marketing & IT
+    Technical Product Owner
+    Assignment Leader
+    Talked to marketing
+    Talked to developer
+		</p>
+	</div><!-- end col -->
+	<div class="col">
+		<h4>Resources</h4>
+	</div><!-- end col -->
+</div><!-- end wrapper -->
+
+</body>
+</html>
+
