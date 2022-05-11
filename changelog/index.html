@@ -39,11 +39,17 @@
 		$.getJSON(uri, function(data) {
 			for (var i=0; i<100; i++) {
         var headline = data[i].commit.message;
+	var trimHeadline = headline.split("\n\n");
+	var getHeadline = trimHeadline[0];
 	var msg = data[i].commit.message;
 	var trimMsg = msg.split('\n\n').pop();
 	var date = data[i].commit.committer.date;
 	var trimDate = date.substring(0,10);
-          $(".headline").append("<p>" + headline +"</p>");
+	 if (typeof getHeadline === 'string' && getHeadline.length === 0) {
+  	$(".headline").append("<p>" + N/A +"</p>");
+	} else {
+  	$(".headline").append("<p>" + getHeadline +"</p>");
+	}
           $(".msg").append("<p>" + trimMsg + "</p>");
 	$(".date").append("<p>" + trimDate + "</p>");
 			}
