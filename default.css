@@ -31,3 +31,12 @@ h4 {
 		margin: 2% auto;
 		}
 }
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #000000;
+		color: #FFFDFA;
+	}
+span, a {
+	color: #D8A446;
+}	
+}
