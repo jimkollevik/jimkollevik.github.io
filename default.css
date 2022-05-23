@@ -33,7 +33,10 @@ h4 {
 }
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: #000000;
-		color: #FFFDFA;
+		background-color: #383f45;
+		color: #f6f7f9;
+	}
+	span, a {
+		color: #9ea5ad;
 	}
 }
