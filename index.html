@@ -18,7 +18,7 @@
 	<div class="col">
 		<h4>Hallå</h4>
 	<p>
-			My name is Jim. <span>I’m a pizza-loving minimalist</span> working as a technical Product Manager.
+			My name is Jim. <span>I’m a pizza-loving minimalist</span> working as a IT Product Manager.
 			I lead and support a team delivering <span>technical projects & development</span>. I enjoy baking my own pizza, skiing and read. 
 		I occassionaly enjoy <span>coding small projects</span> that benefits, well me. I live in Västerås with my <span>awesome partner</span> and 
 		<span>my beautiful son</span>.
@@ -36,9 +36,7 @@
 			<a href="easy-donation-form.html">Easy donation form</a><br>
 			<a href="reporting-dashboard.html">Reporting dashboard</a><br>
 			<a href="discover-with-hertz.html">Discover with Hertz</a><br>
-			<a href="internal-trend-report.html">Trend report rip off</a><br>
 			<a href="recency-frequency-monetary.html">Recency, Frequency, Monetary</a><br>
-			<a href="learning-canvas.html">Learning Canvas</a><br>
 		</p>
 	</div><!-- end col -->
 	<div class="col">
@@ -50,14 +48,6 @@
 </div><!-- end wrapper -->
 
 <script type="text/javascript">
-	console.log("Log changes: ")
-	var uri ="https://api.github.com/repos/jimkollevik/jimkollevik.github.io/commits";
-		$.getJSON(uri, function(data) {
-			for (var i=0; i<100; i++) {
-				var msg = data[i].commit.message;
-					console.log(i, msg)
-			}
-		});
 	//change favicon based on weekday or not
 	var date = new Date();
 	var day = date.getDay();
