@@ -1,1 +1,1 @@
-personal portfolio site. minimal design where focus is on what, how and to show what i've done.
+personal portfolio site. minimal design where focus is on what, the result and my role.
