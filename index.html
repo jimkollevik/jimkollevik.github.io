@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="default.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -47,20 +47,5 @@
    		<br><br>
 	</div><!-- end col -->
 </div><!-- end wrapper -->
-
-<script type="text/javascript">
-	//change favicon based on weekday or not
-	var date = new Date();
-	var day = date.getDay();
-	var hour = date.getHours(); //0-23
-		if (day > 0 && day < 6 && hour >= 8 && hour <= 17) {
-			$("#favicon").attr("href","weekday_fav.png");
-			document.title = "Jim Kollevik | Working";
-		}
-		else {
-			$("#favicon").attr("href","holiday_fav.png");
-			document.title = "Jim Kollevik | Out of office";
-		}
-</script>
 </body>
 </html>
