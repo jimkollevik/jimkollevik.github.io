@@ -24,6 +24,15 @@ h4 {
 	font-size: 12px;
 	font-weight: 600;
 }
+::-moz-selection {
+  color: #ffffff;
+  background: #000000;
+}
+
+::selection {
+  color: #ffffff;
+  background: #000000;
+}
 @media screen and (max-width: 600px) {
 	.wrapper {
 		width: 324px;
@@ -37,5 +46,13 @@ h4 {
 	}
 	span, a {
 		color: #9ea5ad;
+	}	
+	::-moz-selection {
+  		color: #ffffff;
+  		background: #000000;
 	}
+	::selection {
+  		color: #ffffff;
+  background: #000000;
+}
 }
