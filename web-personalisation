@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Jim Kollevik | Work: Discover with Hertz</title>
+	<link id="favicon" rel="shortcut icon" type="image/png" href="img/favicon-16x16.png" />
+	<meta charset="utf-8">
+	<meta content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" type="text/css" href="default.css">
+	<script async src="https://analytics.eu.umami.is/script.js" data-website-id="da51ba08-993d-4506-bb5c-7ddb5f66e7c6"></script>
+</head>
+<body>
+
+<div class="wrapper">
+	<div class="col">
+		<h4>Case</h4>
+		<p>
+In todays digital world people want to be delighted with great experiences when visiting a website or receiving a marketing message - <span>the two should be tied together</span>. At Save the Children our marketing and website was generic. The experience or content wasn't <span>tailored</span> to any specific campaign or segment.
+</p>
+<p>
+Business wanted to change this to be able to better meet users expectations a personalised digital experience.
+</p>
+<p>
+As a Product Owner of web I worked with a solution with the web team where you could utilize visitor groups and campaign codes <span>to personalise the content on specific pages via Optimizely</span>.
+</p>
+<p>
+The work resulted in an increase of monthly givers due to that business could separate what content a segment would see, <span>tailor it to the specific marketing message</span> and even send out physical products as a result of becoming a monthly giver.
+		</p>
+	</div><!-- end col -->
+	<div class="col">
+		<h4>My role</h4>
+		<p>
+			<span>List requirements</span><br>
+      <span>Prioritize development</span><br>
+      <span>Approve development</span><br>
+      <span>Setup processes</span><br>
+      <span>
+		</p>
+	</div><!-- end col -->
+	<div class="col">
+		<h4>Resources</h4>
+	</div><!-- end col -->
+</div><!-- end wrapper -->
+</body>
+</html>
