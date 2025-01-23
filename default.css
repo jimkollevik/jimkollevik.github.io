@@ -5,6 +5,7 @@
 body {
 	font-family: Helvetica, sans-serif;
 	font-weight: 300;
+	color: #171717;
 }
 /* main styling */
 .wrapper {
@@ -60,6 +61,14 @@ a:hover {
 	text-decoration: underline;
 }
 /* dark mode styling */
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #171717;
+	}
+	.dark, a {
+		color: #D9AF62;
+	}
+}
 
 /* mobile device styling */
 @media screen and (max-width: 480px) {
