@@ -62,8 +62,12 @@ a:hover {
 /* dark mode styling */
 
 /* mobile device styling */
-@media screen and (min-width: 480px) {
-  body {
-    background-color: lightgreen;
-  }
+@media screen and (max-width: 480px) {
+	.wrapper {
+		width: 90%;
+	}
+	.content {
+    	min-height: calc(110% - 60px);
+    	font-size: 24px;
+}
 }
