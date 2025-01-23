@@ -62,3 +62,8 @@ a:hover {
 /* dark mode styling */
 
 /* mobile device styling */
+@media screen and (min-width: 480px) {
+  body {
+    background-color: lightgreen;
+  }
+}
