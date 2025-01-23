@@ -1,0 +1,64 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family: Helvetica, sans-serif;
+	font-weight: 300;
+}
+/* main styling */
+.wrapper {
+	width: 60%;
+	height: 90vh;
+	margin: 7.5% auto;
+}
+header {
+	margin: 0 0 7% 0;
+}
+header p, footer p {
+	margin: 0 0 3px 0;
+}
+.content {
+    min-height: calc(80% - 60px);
+}
+.content p {
+	margin: 0 0 5px 0;
+}
+footer {;
+	height: 60px;
+}
+/* font styling, colors etc */
+.default-font {
+	font-family: Helvetica, sans-serif;
+	font-weight: 300;
+	font-size: 13px;
+}
+header p, footer p {
+	font-size: 13px;
+}
+.content {
+	font-size: 27px;
+	font-family: "DM Serif Display", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+.light-grey {
+	color: #D4D4D4;
+}
+.dark-grey {
+	color: #A3A3A3;
+}
+.dark {
+	color: #171717;
+}
+a {
+	text-decoration: none;
+	color: #171717;
+}
+/* effects */
+a:hover {
+	text-decoration: underline;
+}
+/* dark mode styling */
+
+/* mobile device styling */
