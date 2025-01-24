@@ -48,8 +48,7 @@
           const trackDiv = document.createElement("div");
           trackDiv.className = "track";
           trackDiv.innerHTML = `
-            <strong>${track.name}</strong> av ${track.artist["#text"]}
-            ${track.album["#text"] ? `- Album: ${track.album["#text"]}` : ""}
+            <strong>${track.name}</strong> - ${track.artist["#text"]}
           `;
           tracksDiv.appendChild(trackDiv);
         });
