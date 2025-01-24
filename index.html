@@ -43,16 +43,21 @@
         }
         const data = await response.json();
 
-        // Töm innehåll och visa låtar
+        // Töm innehåll och visa ENDAST den senaste låten
         tracksDiv.innerHTML = "";
-        data.recenttracks.track.forEach(track => {
+
+        // Hämta endast den första låten (index 0)
+        const track = data.recenttracks.track[0];
+        if (track) {
           const trackDiv = document.createElement("div");
           trackDiv.className = "track";
           trackDiv.innerHTML = `Last played track: 
             ${track.name} - ${track.artist["#text"]}
           `;
           tracksDiv.appendChild(trackDiv);
-        });
+        } else {
+          tracksDiv.innerHTML = "Inga låtar hittades.";
+        }
       } catch (error) {
         console.error("Fel vid hämtning av låtar:", error);
         tracksDiv.innerHTML = "Kunde inte hämta låtar.";
@@ -61,7 +66,8 @@
 
     // Kör funktionen när sidan laddas
     fetchRecentTracks();
-  </script>
+</script>
+
 
 </body>
 </html>
