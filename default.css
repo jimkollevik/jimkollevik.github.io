@@ -16,7 +16,7 @@ body {
 header {
 	margin: 0 0 7% 0;
 }
-header p, footer p {
+header p, footer p, .track {
 	margin: 0 0 3px 0;
 }
 .content {
