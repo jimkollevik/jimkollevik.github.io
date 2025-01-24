@@ -20,7 +20,7 @@ jobs:
           LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
         run: |
           # Använd curl för att hämta data från LastFM
-          curl "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jsongif&api_key=${LASTFM_API_KEY}&format=json" \
+          curl "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jsongif&api_key=${LASTFM_API_KEY}&format=json&limit=1" \
           -o recent-tracks.json
 
       - name: Commit and push JSON to repo
