@@ -5,6 +5,9 @@ on:
     - cron: "*/30 * * * *" # Kör en gång var 30:e minut
   workflow_dispatch: # Gör det möjligt att köra manuellt
 
+permissions:
+  contents: write
+
 jobs:
   fetch-lastfm-data:
     runs-on: ubuntu-latest
@@ -17,10 +20,12 @@ jobs:
           LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
         run: |
           # Använd curl för att hämta data från LastFM
-          curl "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=ANVÄNDARNAMN_HÄR&api_key=${LASTFM_API_KEY}&format=json" \
+          curl "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=jsongif&api_key=${LASTFM_API_KEY}&format=json" \
           -o recent-tracks.json
 
       - name: Commit and push JSON to repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
