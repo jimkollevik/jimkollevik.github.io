@@ -28,5 +28,39 @@
 	</footer>
 </section><!-- end wrapper -->
 
+<script>
+    // URL till JSON-filen hostad på GitHub Pages
+    const apiUrl = "https://jimkollevik.github.io/ditt-repo/recent-tracks.json";
+
+    async function fetchRecentTracks() {
+      const tracksDiv = document.getElementById("tracks");
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP-fel! Status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        // Töm innehåll och visa låtar
+        tracksDiv.innerHTML = "";
+        data.recenttracks.track.forEach(track => {
+          const trackDiv = document.createElement("div");
+          trackDiv.className = "track";
+          trackDiv.innerHTML = `
+            <strong>${track.name}</strong> av ${track.artist["#text"]}
+            ${track.album["#text"] ? `- Album: ${track.album["#text"]}` : ""}
+          `;
+          tracksDiv.appendChild(trackDiv);
+        });
+      } catch (error) {
+        console.error("Fel vid hämtning av låtar:", error);
+        tracksDiv.innerHTML = "Kunde inte hämta låtar.";
+      }
+    }
+
+    // Kör funktionen när sidan laddas
+    fetchRecentTracks();
+  </script>
+
 </body>
 </html>
