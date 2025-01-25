@@ -56,6 +56,10 @@ a {
 	text-decoration: none;
 	color: #171717;
 }
+.track a {
+	color: #D4D4D4;
+	font-size: 13px;
+}
 /* effects */
 a:hover {
 	text-decoration: underline;

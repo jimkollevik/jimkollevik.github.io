@@ -47,7 +47,9 @@
 
 <section class="wrapper">
 	<header>
-		<p class="light-grey">It's wednesday today. Tomorrow it's thursday.</p>
+    <div id="tracks" class="light-grey default-font">
+		  <p class="track"></p>
+    </div><!-- end tracks -->
 		<p class="dark-grey">(creative) works & notes of <span class="dark"><a href="index.html">Jim Kollevik.</a></span></p>
 	</header>
 	<section class="content">
@@ -67,6 +69,52 @@
 		<p class="light-grey">Made for the love of minimalism</p>
 	</footer>
 </section><!-- end wrapper -->
+
+<script>
+    // URL till JSON-filen hostad på GitHub Pages
+    const apiUrl = "https://jimkollevik.github.io/recent-tracks.json";
+
+    async function fetchRecentTracks() {
+      const tracksDiv = document.getElementById("tracks");
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP-fel! Status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        // Töm innehåll och visa ENDAST den senaste låten
+        tracksDiv.innerHTML = "";
+
+        // Hämta endast den första låten (index 0)
+        const track = data.recenttracks.track[0];
+        if (track) {
+          const trackName = track.name;
+          const artistName = track.artist["#text"];
+          const trackUrl = track.url; // URL till låten på LastFM
+
+          // Skapa HTML med en länk
+          const trackDiv = document.createElement("div");
+          trackDiv.className = "track";
+          trackDiv.innerHTML = `
+            Last played track: 
+            <a href="${trackUrl}" target="_blank" rel="noopener noreferrer">
+              ${trackName} - ${artistName} &#8599;
+            </a>
+          `;
+          tracksDiv.appendChild(trackDiv);
+        } else {
+          tracksDiv.innerHTML = "Inga låtar hittades.";
+        }
+      } catch (error) {
+        console.error("Fel vid hämtning av låtar:", error);
+        tracksDiv.innerHTML = "Kunde inte hämta låtar.";
+      }
+    }
+
+    // Kör funktionen när sidan laddas
+    fetchRecentTracks();
+</script>
 
 </body>
 </html>

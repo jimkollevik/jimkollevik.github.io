@@ -14,7 +14,7 @@
 <section class="wrapper">
 	<header>
     <div id="tracks" class="light-grey default-font">
-		  <p class="track">It's wednesday today. Tomorrow it's thursday.</p>
+		  <p class="track"></p>
     </div><!-- end tracks -->
 		<p class="dark-grey">(creative) works & notes of <span class="dark">Jim Kollevik.</span></p>
 	</header>
@@ -49,10 +49,18 @@
         // Hämta endast den första låten (index 0)
         const track = data.recenttracks.track[0];
         if (track) {
+          const trackName = track.name;
+          const artistName = track.artist["#text"];
+          const trackUrl = track.url; // URL till låten på LastFM
+
+          // Skapa HTML med en länk
           const trackDiv = document.createElement("div");
           trackDiv.className = "track";
-          trackDiv.innerHTML = `Last played track: 
-            ${track.name} - ${track.artist["#text"]}
+          trackDiv.innerHTML = `
+            Last played track: 
+            <a href="${trackUrl}" target="_blank" rel="noopener noreferrer">
+              ${trackName} - ${artistName} &#8599;
+            </a>
           `;
           tracksDiv.appendChild(trackDiv);
         } else {
@@ -67,6 +75,7 @@
     // Kör funktionen när sidan laddas
     fetchRecentTracks();
 </script>
+
 
 
 </body>
