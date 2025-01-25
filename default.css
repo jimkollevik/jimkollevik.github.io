@@ -59,6 +59,7 @@ a {
 .track a {
 	color: #D4D4D4;
 	font-size: 13px;
+	text-transform: lowercase;
 }
 /* effects */
 a:hover {
