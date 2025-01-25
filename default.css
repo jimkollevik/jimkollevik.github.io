@@ -72,6 +72,9 @@ a:hover {
 	.dark, a {
 		color: #D9AF62;
 	}
+	h1 {
+		color: #D4D4D4;
+	}
 }
 
 /* mobile device styling */
