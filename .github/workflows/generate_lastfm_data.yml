@@ -2,8 +2,8 @@ name: Generate LastFM Data
 
 on:
   schedule:
-    - cron: "*/30 * * * *" # Kör en gång var 30:e minut
-  workflow_dispatch: # Gör det möjligt att köra manuellt
+    - cron: "*/18 * * * *" # Run once every 18th minute
+  workflow_dispatch: # Make it possible to run manually
 
 permissions:
   contents: write
@@ -12,6 +12,15 @@ jobs:
   fetch-lastfm-data:
     runs-on: ubuntu-latest
     steps:
+      - name: Set timezone and exit if running between 00:01 and 07:00
+        run: |
+          export TZ=Europe/Stockholm
+          current_hour=$(date +"%H")
+          if [ "$current_hour" -ge 0 ] && [ "$current_hour" -lt 7 ]; then
+            echo "It's between 00:01 and 07:00 Stockholm/Amsterdam time. Exiting..."
+            exit 0
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
