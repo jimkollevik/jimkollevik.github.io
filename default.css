@@ -20,7 +20,7 @@ header p, footer p, .track {
 	margin: 0 0 3px 0;
 }
 .content {
-    min-height: calc(85% - 60px);
+    min-height: calc(75% - 60px);
 }
 .content p {
 	margin: 0 0 5px 0;
