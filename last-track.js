@@ -1,6 +1,6 @@
 
     // URL to Json file in repo
-    const apiUrl = "https://jimkollevik.com/recent-tracks.json";
+    const apiUrl = "https://www.jimkollevik.com/recent-tracks.json";
 
     async function fetchRecentTracks() {
       const tracksDiv = document.getElementById("tracks");
