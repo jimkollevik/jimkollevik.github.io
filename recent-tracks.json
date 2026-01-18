@@ -1,10 +1,1 @@
-
-<html><head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>502 Server Error</title>
-</head>
-<body text=#000000 bgcolor=#ffffff>
-<h1>Error: Server Error</h1>
-<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>
-<h2></h2>
-</body></html>
+{"recenttracks":{"track":[{"artist":{"mbid":"eecada09-acfc-472d-ae55-e9e5a43f12d8","#text":"Bad Omens"},"streamable":"0","image":[{"size":"small","#text":"https:\/\/lastfm.freetls.fastly.net\/i\/u\/34s\/31247a4412911ac3e8502777d456a5c7.jpg"},{"size":"medium","#text":"https:\/\/lastfm.freetls.fastly.net\/i\/u\/64s\/31247a4412911ac3e8502777d456a5c7.jpg"},{"size":"large","#text":"https:\/\/lastfm.freetls.fastly.net\/i\/u\/174s\/31247a4412911ac3e8502777d456a5c7.jpg"},{"size":"extralarge","#text":"https:\/\/lastfm.freetls.fastly.net\/i\/u\/300x300\/31247a4412911ac3e8502777d456a5c7.jpg"}],"mbid":"d40fc673-e63c-494b-8852-d3fe005a666e","album":{"mbid":"dd144a37-f8e3-4e14-aeda-83fbaba90f17","#text":"THE DEATH OF PEACE OF MIND"},"name":"Just Pretend","url":"https:\/\/www.last.fm\/music\/Bad+Omens\/_\/Just+Pretend","date":{"uts":"1768756865","#text":"18 Jan 2026, 17:21"}}],"@attr":{"user":"jsongif","totalPages":"24344","page":"1","perPage":"1","total":"24344"}}}
