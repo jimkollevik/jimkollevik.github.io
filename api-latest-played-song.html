@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+  	<!-- Alternative sizes -->
+  	<link rel="icon" href="favicon.png" sizes="32x32">
+ 	<link rel="icon" href="favicon.png" sizes="16x16">
+  	<!-- For Apple devices -->
+  	<link rel="apple-touch-icon" href="favicon.png">
+	<title>Works & Notes by Jim Kollevik | GDPR - New rules of marketing</title>
+	<link rel="stylesheet" type="text/css" href="default.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+	<!-- tracking -->
+	<script src="umami-settings.js"></script>	
+
+	<!-- inline css for pages -->
+	<style type="text/css">
+		.content {
+			width: 500px;
+		}
+		.content p:first-child, .content p:nth-child(2), .content p:nth-child(4), .content p:nth-child(6) {
+			margin: 0 0 40px 0;
+		}
+		.content p:nth-child(2), .content p:nth-child(4) {
+			line-height: 20px;
+		}
+		.content p:nth-child(6) {
+			line-height: 20px;
+		}
+		.content p:nth-child(8) {
+			margin: 0 0 80px 0;
+			line-height: 20px;
+		}
+		h1 {
+			margin: 0 0 10px 0;
+		}
+		/* mobile device styling */
+		@media screen and (max-width: 480px) {
+			.content {
+				width: 96%;
+				min-height: calc(95vh - 60px);
+			}
+			.content p:nth-child(6) {
+				margin: 0 0 40px 0;
+			}
+		/* dark mode */
+		@media (prefers-color-scheme: dark) {
+			.dark {
+				color: #D9AF62;
+			}
+		}
+	</style>
+
+</head>
+<body>
+
+<section class="wrapper">
+	<header>
+    <div id="tracks" class="light-grey default-font">
+		  <p class="track"></p>
+    </div><!-- end tracks -->
+		<p class="dark-grey">(creative) works & notes of <span class="dark"><a href="index.html">Jim Kollevik.</a></span></p>
+	</header>
+	<section class="content">
+		<p class="dark"><span class="light-grey">Web API —</span> latest played song from spotify</p>
+		<p class="default-font dark-grey">By 2024, I had built roughly ten different versions of my portfolio. This time, I set a clear goal: create something low-maintenance, yet still playful. The result is a minimal design - but with a personal twist. I believe small, personal signals create stronger emotional engagement than heavy visual decoration so I wanted to find a subtle way to weave it into the experience.</p>
+
+		<h1 class="default-font">Solution</h1>
+		<p class="default-font dark-grey">I wanted to display my most recently played track from Spotify to visitors. I initially explored Spotify’s API, but quickly realized it was far too complex for such a small feature.<br><br>
+
+		Although I briefly dropped the idea, it kept coming back. After researching alternatives, I discovered Last.fm, which offers a much simpler API and provides the same listening data.</p>
+
+		<h1 class="default-font">Implementation</h1>
+		<p class="default-font dark-grey">After reviewing Last.fm’s documentation, I created an account and connected it to my Spotify profile. I then generated API credentials, set up an endpoint, and started implementing the feature.<br><br>
+
+		To keep the data fresh, I set up a scheduled job that periodically fetches my latest track. While the page could have requested the data on each visit, I deliberately chose to introduce a background update flow. This allowed me to explore automation, understand how to work with time-based processes, and think more critically about data freshness versus system complexity.</p>
+
+		<h1 class="default-font">Closing Notes</h1>	
+		<p class="default-font dark-grey">The result is a small but personal detail: my latest played track is always visible on the site and links directly to Last.fm for listening. Beyond adding character to the portfolio, the project helped me better understand APIs, scheduling, and data handling - proving that even minor features can be valuable learning experiences.
+	</section>
+	<footer>
+		<p class="dark-grey"><a class="dark-grey" href="@mailto:jim.kollevik@gmail.com">jim.kollevik@gmail.com</a> - <a class="dark-grey" href="https://drive.google.com/file/d/1iipAT3fqGwMJwThTB8JTiOSgWJTIzFE1/view?usp=sharing" target="_blank">curriculum vitae &#8599</a></p>
+		<p class="light-grey">Made for the love of minimalism</p>
+	</footer>
+</section><!-- end wrapper -->
+
+<script type="text/javascript" src="last-track.js"></script>
+
+</body>
+</html>
