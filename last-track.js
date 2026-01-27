@@ -27,7 +27,7 @@
           trackDiv.innerHTML = `
             Last played track: 
             <a href="${trackUrl}" target="_blank" rel="noopener noreferrer">
-              ${trackName} by ${artistName} &#8599;
+              ${trackName} by ${artistName} &#8599;&#xFE0E;
             </a>
           `;
           tracksDiv.appendChild(trackDiv);
