@@ -1,10 +1,1 @@
-
-<html><head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>502 Server Error</title>
-</head>
-<body text=#000000 bgcolor=#ffffff>
-<h1>Error: Server Error</h1>
-<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>
-<h2></h2>
-</body></html>
+{"recenttracks":{"track":[{"artist":{"mbid":"ac7e838c-3d95-47c2-92a9-81767ad7c217","#text":"Empire of the Sun"},"streamable":"0","image":[{"size":"small","#text":"https:\/\/lastfm.freetls.fastly.net\/i\/u\/34s\/7daa4cb95e9739838b966e7b8f69a84e.png"},{"size":"medium","#text":"https:\/\/lastfm.freetls.fastly.net\/i\/u\/64s\/7daa4cb95e9739838b966e7b8f69a84e.png"},{"size":"large","#text":"https:\/\/lastfm.freetls.fastly.net\/i\/u\/174s\/7daa4cb95e9739838b966e7b8f69a84e.png"},{"size":"extralarge","#text":"https:\/\/lastfm.freetls.fastly.net\/i\/u\/300x300\/7daa4cb95e9739838b966e7b8f69a84e.png"}],"mbid":"","album":{"mbid":"f2ed6416-7da9-41ce-9685-b5fc72382ffd","#text":"Walking On A Dream (10th Anniversary Edition)"},"name":"Walking on a Dream","url":"https:\/\/www.last.fm\/music\/Empire+of+the+Sun\/_\/Walking+on+a+Dream","date":{"uts":"1774107784","#text":"21 Mar 2026, 15:43"}}],"@attr":{"user":"jsongif","totalPages":"28196","page":"1","perPage":"1","total":"28196"}}}
