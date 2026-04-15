@@ -24,12 +24,16 @@
           // Create HTML link with URL
           const trackDiv = document.createElement("div");
           trackDiv.className = "track";
-          trackDiv.innerHTML = `
-            Last played track: 
-            <a href="${trackUrl}" target="_blank" rel="noopener noreferrer">
-              ${trackName} by ${artistName} &#8599;&#xFE0E;
-            </a>
-          `;
+trackDiv.innerHTML = `
+  <div class="marquee">
+    <span>
+      What I recently played on Spotify:
+      <a href="${trackUrl}" target="_blank" rel="noopener noreferrer">
+        ${trackName} by ${artistName}
+      </a>
+    </span>
+  </div>
+`;
           tracksDiv.appendChild(trackDiv);
         } else {
           tracksDiv.innerHTML = "No tracks found";
@@ -39,6 +43,8 @@
         tracksDiv.innerHTML = "Could not retreive tracks.";
       }
     }
+
+    
 
     // Kör funktionen när sidan laddas
     fetchRecentTracks();
