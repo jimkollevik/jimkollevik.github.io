@@ -91,5 +91,8 @@ a {
 	}
 	.content {
     	min-height: calc(98% - 60px);
-}
+	}
+	.marquee span {
+		font-size: 14px;
+	}
 }
