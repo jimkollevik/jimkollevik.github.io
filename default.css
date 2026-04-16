@@ -37,7 +37,7 @@ header p, footer p, .track {
 	color: lightgray;
 }
 footer {;
-	height: 60px;
+	height: 70px;
 }
 /* font styling, colors etc */
 h1 {
@@ -72,6 +72,7 @@ a {
   display: inline-block;
   padding-left: 100%;
   animation: scroll 10s linear infinite;
+  font-size: 14px;
 }
 
 .marquee:hover span {
@@ -91,8 +92,5 @@ a {
 	}
 	.content {
     	min-height: calc(98% - 60px);
-	}
-	.marquee span {
-		font-size: 14px;
 	}
 }
