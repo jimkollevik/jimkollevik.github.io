@@ -93,4 +93,11 @@ a {
 	.content {
     	min-height: calc(98% - 60px);
 	}
+	#tracks,
+  	#tracks p,
+  	#tracks a,
+  	.track,
+  	.marquee span {
+    	font-size: 14px !important;
+  	}
 }
