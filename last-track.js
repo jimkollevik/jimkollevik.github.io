@@ -27,7 +27,7 @@
 trackDiv.innerHTML = `
   <div class="marquee">
     <span>
-      What I recently played on Spotify:
+      In my headphones:
       <a href="${trackUrl}" target="_blank" rel="noopener noreferrer">
         ${trackName} by ${artistName}
       </a>

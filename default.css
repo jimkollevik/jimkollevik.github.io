@@ -14,20 +14,27 @@ body {
 /* main styling */
 .wrapper {
 	width: 480px;
-	height: 90vh;
 	margin: 7.5% auto;
+	height: auto;
 }
 header {
 	margin: 0 0 20px 0;
 }
-header p, footer p, .track {
+header p, .footer p {
 	margin: 0 0 3px 0;
-}
-.content {
-    min-height: calc(75% - 60px);
 }
 .content p {
 	margin: 0 0 20px 0;
+}
+.row {
+	display: flex;
+	justify-content: space-between;
+}
+.cases p {
+	margin: 0 0 10px 0;
+}
+.spacing {
+	margin-bottom: 50px;
 }
 #tracks {
 	margin-bottom: 20px;
@@ -35,12 +42,9 @@ header p, footer p, .track {
 #tools {
 	margin: 0 0 20px 0;
 }
-#tools li {
+#tools li, .number {
 	text-decoration: none;
 	color: lightgray;
-}
-footer {;
-	height: 70px;
 }
 /* font styling, colors etc */
 h1 {
@@ -61,6 +65,12 @@ ul li {
 }
 a {
 	color: #0000FF;
+}
+img {
+	max-width: 100%;
+	max-height: 600px;
+	height: auto;
+	filter: grayscale(1);
 }
 .track a {
 	color: #0000FF;
