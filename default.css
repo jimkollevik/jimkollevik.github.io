@@ -46,6 +46,10 @@ header p, .footer p {
 	text-decoration: none;
 	color: lightgray;
 }
+.footer ul li {
+	display: inline-block;
+	margin-right: 20px;
+}
 /* font styling, colors etc */
 h1 {
 	font-weight: 500;
