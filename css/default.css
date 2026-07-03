@@ -1,0 +1,62 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family: "DM Sans", sans-serif;
+	background-color: #302F2C;
+	color: #ffffff;
+}
+.wrapper {
+	width: 60%;
+	margin: 10% auto;
+}
+.accent {
+	color: grey;
+}
+.row {
+	display: flex;
+	justify-content: space-between;
+}
+.hero {
+	margin-bottom: 100px;
+}
+.col h4 {
+	margin-bottom: 50px;
+	font-size: 1.2em;
+}
+.hero h2 {
+	font-size: 2em;
+}
+.number, .intervention, p {
+	font-size: 0.9em;
+	font-weight: bold;
+}
+.cases p, .cases h5 {
+	margin-bottom: 10px;
+}
+a {
+	color: #ffffff;
+	text-decoration: underline;
+}
+/* mobile device styling */
+@media screen and (max-width: 480px) {
+	.wrapper {
+		width: 90%;
+	}
+	.row {
+		display: block;
+	}
+	.hero {
+		margin-bottom: 50px;
+	}
+	.cases {
+		margin-top: 40px;
+	}
+	.hero {
+		line-height: 1.2;
+	}
+	.cases p {
+		font-size: 0.6695em;
+	}
+}
