@@ -17,8 +17,13 @@ async function handleSend() {
     if (!query) return;
 
     inputField.value = '';
+
+    // 1. Rendera användarens text
     appendMessage(query, 'user');
+
+    // 2. Skapa agentens bubbla
     const agentMessageDiv = appendMessage('', 'agent');
+    agentMessageDiv.innerText = "Tänker...";
 
     try {
         const response = await fetch(API_URL, {
@@ -32,8 +37,10 @@ async function handleSend() {
 
         if (!response.ok) {
             const errData = await response.json();
-            throw new Error(errData.error || "Serverfel");
+            throw new Error(errData.error || "Okänt serverfel");
         }
+
+        agentMessageDiv.innerText = "";
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
@@ -44,34 +51,46 @@ async function handleSend() {
             if (done) break;
 
             buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop(); // Spara ofullständig rad
+            
+            // Hanterar både \r\n (mobiler) och vanliga \n (desktop)
+            const lines = buffer.split(/\r?\n/);
+            buffer = lines.pop(); // Spara den sista ofullständiga raden i bufferten
 
             for (const line of lines) {
-                if (line.startsWith('data:')) {
-                    try {
-                        const parsed = JSON.parse(line.slice(5));
-                        
-                        if (parsed.conversation_id) {
-                            conversationId = parsed.conversation_id; 
-                        }
+                const cleanLine = line.trim();
+                
+                // Mobiler skickar ibland tomma rader i strömmen, hoppa över dem
+                if (!cleanLine || !cleanLine.startsWith('data:')) continue;
 
-                        if (parsed.event === 'message' && parsed.answer) {
-                            agentMessageDiv.innerText += parsed.answer;
-                            const chatBox = document.getElementById('chat-box');
-                            chatBox.scrollTop = chatBox.scrollHeight;
-                        }
-                    } catch (e) {
-                        // Ignorera ofullständiga JSON-rader
+                try {
+                    // Extrahera allt efter "data:"
+                    const jsonString = cleanLine.slice(5).trim();
+                    const parsed = JSON.parse(jsonString);
+                    
+                    if (parsed.conversation_id) {
+                        conversationId = parsed.conversation_id; 
                     }
+
+                    if (parsed.event === 'message' && parsed.answer) {
+                        agentMessageDiv.innerText += parsed.answer;
+                        
+                        // Scrolla ner automatiskt
+                        const chatBox = document.getElementById('chat-box');
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    }
+                } catch (e) {
+                    // Om en rad mot förmodan fortfarande är trasig på mobilen, 
+                    // hoppar vi bara över den istället för att krascha hela chatten
+                    console.log("Hoppade över trasig strömrad:", cleanLine);
                 }
             }
         }
     } catch (error) {
-        console.error("Detekterat fel:", error);
-        agentMessageDiv.innerText = `Kunde inte hämta svar: ${error.message}`;
+        console.error("Fel fångat i frontend:", error);
+        agentMessageDiv.innerText = `Kunde inte hämta svar. Felmeddelande: ${error.message}`;
     }
 }
+
 
 function appendMessage(text, sender) {
     const chatBox = document.getElementById('chat-box');
