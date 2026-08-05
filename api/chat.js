@@ -1,28 +1,33 @@
-export default async function handler(req, res) {
-    // Hantera CORS-headers för säkerhets skull
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+export const config = {
+    runtime: 'edge', // Tvingar Vercel att köra i sin supersnabba Edge-miljö som älskar streaming
+};
 
+export default async function handler(req) {
+    // Hantera CORS-förfrågningar (OPTIONS)
     if (req.method === 'OPTIONS') {
-        return res.status(200).end();
+        return new Response(null, {
+            status: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type',
+            },
+        });
     }
 
     if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
+        return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
     }
 
-    // Säkerställ att API-nyckeln faktiskt finns tillgänglig i Vercel
     const apiKey = process.env.DIFY_API_KEY;
     if (!apiKey) {
-        console.error("FEL: Miljövariabeln DIFY_API_KEY saknas i Vercel-inställningarna!");
-        return res.status(500).json({ error: 'API key is missing on server' });
+        return new Response(JSON.stringify({ error: 'API key is missing on server' }), { status: 500 });
     }
 
     try {
-        const { query, conversation_id } = req.body;
-        console.log(`Skickar fråga till Dify: "${query}" med kontext-ID: "${conversation_id || 'ny'}"`);
+        const { query, conversation_id } = await req.json();
 
+        // Gör anropet till Dify
         const difyResponse = await fetch('https://dify.ai', {
             method: 'POST',
             headers: {
@@ -40,27 +45,21 @@ export default async function handler(req, res) {
 
         if (!difyResponse.ok) {
             const errorText = await difyResponse.text();
-            console.error(`Dify API svarade med felkod ${difyResponse.status}:`, errorText);
-            return res.status(difyResponse.status).json({ error: 'Fel från Dify API' });
+            return new Response(JSON.stringify({ error: `Dify error: ${errorText}` }), { status: difyResponse.status });
         }
 
-        // Sätt rätt headers för att webbläsaren ska fatta att det är en textström
-        res.setHeader('Content-Type', 'text/event-stream');
-        res.setHeader('Cache-Control', 'no-cache');
-        res.setHeader('Connection', 'keep-alive');
-
-        // Överför Dify-strömmen direkt till Vercel-svaret (detta är säkrare på Vercel)
-        const responseStream = difyResponse.body;
-        
-        // Vi läser av strömmen och skickar vidare direkt till frontend
-        for await (const chunk of responseStream) {
-            res.write(chunk);
-        }
-        
-        res.end();
+        // Returnera Dify-strömmen direkt till din frontend med rätt headers
+        return new Response(difyResponse.body, {
+            status: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'text/event-stream',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+            },
+        });
 
     } catch (error) {
-        console.error("Internt serverfel i Vercel-funktionen:", error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
     }
 }
