@@ -1,9 +1,10 @@
 export default async function handler(req, res) {
-    // Sätt CORS-headers så att webbläsaren tillåts läsa svaret
+    // Sätt CORS-headers så att din frontend får prata med backenden
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+    // Hantera CORS Preflight
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
@@ -20,7 +21,7 @@ export default async function handler(req, res) {
     try {
         const { query, conversation_id } = req.body;
 
-        // Ett minimalt och helt rent payload som garanterat accepteras av Dify Chatbot
+        // Skapa payload för Dify Chatbot API
         const requestPayload = {
             inputs: {},
             query: query,
@@ -28,31 +29,23 @@ export default async function handler(req, res) {
             response_mode: "streaming"
         };
 
-        // Om vi har ett pågående kontext-id, bifoga det
         if (conversation_id) {
             requestPayload.conversation_id = conversation_id;
         }
 
-        const difyResponse = await fetch('https://api.dify.ai/v1/chat-messages', {
+        // Anrop till Dify API
+        const difyResponse = await fetch('https://dify.ai', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${apiKey.trim()}`, // Rensar eventuella dolda mellanslag
+                'Authorization': `Bearer ${apiKey.trim()}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(requestPayload)
         });
 
-        // Om Dify skickar ett felmeddelande, extraherar vi texten direkt ur deras svar
         if (!difyResponse.ok) {
             const errorText = await difyResponse.text();
-            let parsedError = errorText;
-            try {
-                const jsonErr = JSON.parse(errorText);
-                parsedError = jsonErr.message || jsonErr.code || errorText;
-            } catch (e) {
-                // Svaret var inte JSON
-            }
-            return res.status(difyResponse.status).json({ error: `Dify klagade på: ${parsedError}` });
+            return res.status(difyResponse.status).json({ error: `Dify API fel: ${errorText}` });
         }
 
         // Sätt korrekta strömnings-headers för Vercel Node.js
@@ -60,10 +53,32 @@ export default async function handler(req, res) {
         res.setHeader('Cache-Control', 'no-cache, no-transform');
         res.setHeader('Connection', 'keep-alive');
 
-        // Strömma ut rådata direkt till din app.js
-        const responseStream = difyResponse.body;
-        for await (const chunk of responseStream) {
-            res.write(chunk);
+        const reader = difyResponse.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = '';
+
+        // Läs in strömmen från Dify på servern, städa den, och skicka till klienten
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split(/\r?\n/);
+            buffer = lines.pop() || '';
+
+            for (const line of lines) {
+                const cleanLine = line.trim();
+                
+                // SERVER-FILTER: Skicka BARA vidare rader som faktiskt innehåller JSON-data.
+                // Detta klipper bort dolda pings/heartbeats som kraschar mobil-Safari.
+                if (cleanLine.startsWith('data:')) {
+                    const jsonPart = cleanLine.slice(5).trim();
+                    if (jsonPart.startsWith('{')) {
+                        // Skriv ut den rena raden till webbläsaren (både mobil och desktop)
+                        res.write(`${cleanLine}\n\n`); 
+                    }
+                }
+            }
         }
         
         res.end();
