@@ -1,4 +1,4 @@
-const API_URL = "/api/chat";
+const API_URL = "https://jimkollevik-github-io.vercel.app/api/chat";
 
 let conversationId = "";
 
