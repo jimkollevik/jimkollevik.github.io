@@ -1,0 +1,92 @@
+:root {
+    --bg-color: #0f172a;       /* Mörk modern bakgrund */
+    --text-color: #f8fafc;     /* Ljus text */
+    --agent-msg-bg: #1e293b;   /* Agentens bubbla */
+    --user-msg-bg: #3b82f6;    /* Dina meddelandebubblor */
+    --accent-color: #60a5fa;   /* Knappar och detaljer */
+    --font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.chat-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px; /* Håller texten centrerad och lättläst på stora skärmar */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    padding: 12px 18px;
+    border-radius: 12px;
+    max-width: 75%;
+    line-height: 1.5;
+}
+
+.agent {
+    background-color: var(--agent-msg-bg);
+    align-self: flex-start;
+}
+
+.user {
+    background-color: var(--user-msg-bg);
+    align-self: flex-end;
+}
+
+.suggestions-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.suggestions-container button {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.suggestions-container button:hover {
+    background: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.input-container {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    background: var(--agent-msg-bg);
+    border: 1px solid #334155;
+    color: var(--text-color);
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+}

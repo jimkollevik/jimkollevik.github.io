@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min AI Portfolio</title>
+    <link rel="stylesheet" href="default.css">
+</head>
+<body>
+
+    <main class="chat-container">
+        <!-- Chatthistorik -->
+        <section id="chat-box" class="chat-box">
+            <div class="message agent">Hej! Jag är Jim Kolleviks AI-agent. Vad vill du veta om mina projekt eller min erfarenhet?</div>
+        </section>
+
+        <!-- Standardfrågor (Försvinner eller ligger kvar i botten) -->
+        <section id="suggestions" class="suggestions-container">
+            <button onclick="sendSuggestion('Vilka programmeringsspråk kan du?')">🛠️ Vilka tech-stacks kan du?</button>
+            <button onclick="sendSuggestion('Berätta om ditt senaste projekt')">🚀 Senaste projektet</button>
+            <button onclick="sendSuggestion('Hur kan jag kontakta dig?')">📞 Hur kontaktar jag dig?</button>
+        </section>
+
+        <!-- Inputfältet -->
+        <footer class="input-container">
+            <input type="text" id="user-input" placeholder="Fråga mig något..." onkeypress="handleKeyPress(event)">
+            <button onclick="handleSend()">Skicka</button>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
