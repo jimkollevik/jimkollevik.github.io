@@ -43,7 +43,7 @@ async function handleSend() {
         agentMessageDiv.innerText = "";
 
         const reader = response.body.getReader();
-        const decoder = new TextDecoder();
+        const decoder = new TextDecoder("utf-8");
         let buffer = '';
 
         while (true) {
@@ -52,25 +52,35 @@ async function handleSend() {
 
             buffer += decoder.decode(value, { stream: true });
             
-            // Hanterar både \r\n (mobiler) och vanliga \n (desktop)
+            // Hantera alla typer av mobil-radbrytningar
             const lines = buffer.split(/\r?\n/);
-            buffer = lines.pop(); // Spara den sista ofullständiga raden i bufferten
+            buffer = lines.pop() || ''; // Spara sista raden om den är delad
 
             for (const line of lines) {
                 const cleanLine = line.trim();
                 
-                // Mobiler skickar ibland tomma rader i strömmen, hoppa över dem
-                if (!cleanLine || !cleanLine.startsWith('data:')) continue;
+                // CRUCIAL: Safaris mönster-validering kräver att vi stenhårt 
+                // rensar bort allt som inte börjar med data: och att det faktiskt finns text efter.
+                if (!cleanLine || !cleanLine.startsWith('data:') || cleanLine.length <= 5) {
+                    continue; 
+                }
 
                 try {
-                    // Extrahera allt efter "data:"
+                    // Klipp ut JSON-strängen
                     const jsonString = cleanLine.slice(5).trim();
+                    
+                    // Safaris panikbroms: Om strängen inte börjar med { så kör vi inte JSON.parse
+                    if (!jsonString.startsWith('{')) {
+                        continue;
+                    }
+
                     const parsed = JSON.parse(jsonString);
                     
                     if (parsed.conversation_id) {
                         conversationId = parsed.conversation_id; 
                     }
 
+                    // Säkra att det är ett faktiskt textmeddelande från Dify
                     if (parsed.event === 'message' && parsed.answer) {
                         agentMessageDiv.innerText += parsed.answer;
                         
@@ -79,9 +89,8 @@ async function handleSend() {
                         chatBox.scrollTop = chatBox.scrollHeight;
                     }
                 } catch (e) {
-                    // Om en rad mot förmodan fortfarande är trasig på mobilen, 
-                    // hoppar vi bara över den istället för att krascha hela chatten
-                    console.log("Hoppade över trasig strömrad:", cleanLine);
+                    // Det var en trasig rad, vi sväljer felet tyst så att mobilen bara tuggar vidare
+                    console.log("Hoppade över ogiltig JSON-rad på mobilen.");
                 }
             }
         }
