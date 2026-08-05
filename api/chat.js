@@ -1,89 +1,128 @@
 export default async function handler(req, res) {
-    // Sätt CORS-headers så att din frontend får prata med backenden
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    // Hantera CORS Preflight
-    if (req.method === 'OPTIONS') {
+    // Allow frontend requests
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+
+    // Handle browser preflight requests
+    if (req.method === "OPTIONS") {
         return res.status(200).end();
     }
 
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Metoden tillåts inte' });
+
+    if (req.method !== "POST") {
+        return res.status(405).json({
+            error: "Method not allowed"
+        });
     }
+
 
     const apiKey = process.env.DIFY_API_KEY;
+
+
     if (!apiKey) {
-        return res.status(500).json({ error: 'DIFY_API_KEY saknas helt i Vercels miljövariabler!' });
+        return res.status(500).json({
+            error: "Missing DIFY_API_KEY environment variable"
+        });
     }
 
-    try {
-        const { query, conversation_id } = req.body;
 
-        // Skapa payload för Dify Chatbot API
-        const requestPayload = {
+    try {
+
+        const {
+            query,
+            conversation_id
+        } = req.body;
+
+
+        const payload = {
             inputs: {},
-            query: query,
-            user: "unique_portfolio_visitor", // Obligatoriskt id för Dify-användarsessioner
-            response_mode: "streaming"
+            query,
+            response_mode: "streaming",
+
+            // Static anonymous visitor.
+            // No personal information is stored.
+            user: "portfolio_visitor"
         };
 
+
         if (conversation_id) {
-            requestPayload.conversation_id = conversation_id;
+            payload.conversation_id = conversation_id;
         }
 
-        // Anrop till Dify API
-        const difyResponse = await fetch('https://dify.ai', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${apiKey.trim()}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestPayload)
-        });
+
+        const difyResponse = await fetch(
+            "https://api.dify.ai/v1/chat-messages",
+            {
+                method: "POST",
+
+                headers: {
+                    Authorization: `Bearer ${apiKey}`,
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(payload)
+            }
+        );
+
 
         if (!difyResponse.ok) {
+
             const errorText = await difyResponse.text();
-            return res.status(difyResponse.status).json({ error: `Dify API fel: ${errorText}` });
+
+            console.error(
+                "Dify error:",
+                difyResponse.status,
+                errorText
+            );
+
+            return res.status(difyResponse.status).json({
+                error: "Dify API request failed",
+                details: errorText
+            });
         }
 
-        // Sätt korrekta strömnings-headers för Vercel Node.js
-        res.setHeader('Content-Type', 'text/event-stream');
-        res.setHeader('Cache-Control', 'no-cache, no-transform');
-        res.setHeader('Connection', 'keep-alive');
+
+        // Forward SSE stream directly to browser
+        res.writeHead(200, {
+            "Content-Type": "text/event-stream",
+            "Cache-Control": "no-cache, no-transform",
+            "Connection": "keep-alive"
+        });
+
 
         const reader = difyResponse.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-        let buffer = '';
 
-        // Läs in strömmen från Dify på servern, städa den, och skicka till klienten
+
         while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
 
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split(/\r?\n/);
-            buffer = lines.pop() || '';
+            const {
+                done,
+                value
+            } = await reader.read();
 
-            for (const line of lines) {
-                const cleanLine = line.trim();
-                
-                // SERVER-FILTER: Skicka BARA vidare rader som faktiskt innehåller JSON-data.
-                // Detta klipper bort dolda pings/heartbeats som kraschar mobil-Safari.
-                if (cleanLine.startsWith('data:')) {
-                    const jsonPart = cleanLine.slice(5).trim();
-                    if (jsonPart.startsWith('{')) {
-                        // Skriv ut den rena raden till webbläsaren (både mobil och desktop)
-                        res.write(`${cleanLine}\n\n`); 
-                    }
-                }
+
+            if (done) {
+                break;
             }
+
+
+            res.write(Buffer.from(value));
         }
-        
+
+
         res.end();
 
+
     } catch (error) {
-        return res.status(500).json({ error: `Internt Serverfel: ${error.message}` });
+
+        console.error(error);
+
+
+        return res.status(500).json({
+            error: error.message
+        });
     }
 }
