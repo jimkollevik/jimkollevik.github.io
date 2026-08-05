@@ -1,98 +1,269 @@
-const API_URL = '/api/chat';
+const API_URL = "/api/chat";
+
 let conversationId = "";
 
-function handleKeyPress(e) {
-    if (e.key === 'Enter') handleSend();
-}
 
-function sendSuggestion(text) {
-    document.getElementById('user-input').value = text;
-    handleSend();
-    // Döljer förslagen efter första klicket för att rensa spelytan
-    document.getElementById('suggestions').style.display = 'none'; 
-}
-
-async function handleSend() {
-    const inputField = document.getElementById('user-input');
-    const query = inputField.value.trim();
-    if (!query) return;
-
-    inputField.value = '';
-
-    // 1. Rendera användarens text i UI
-    appendMessage(query, 'user');
-
-    // 2. Skapa en tom bubbla för agentens strömmande svar
-    const agentMessageDiv = appendMessage('', 'agent');
-    agentMessageDiv.innerText = "Tänker...";
-
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                query: query,
-                conversation_id: conversationId // Skickas med för att hålla minnet vid liv
-            })
-        });
-
-        if (!response.ok) {
-            const errData = await response.json();
-            throw new Error(errData.error || "Okänt serverfel");
-        }
-
-        // Rensa bort "Tänker..." då strömmen har startat
-        agentMessageDiv.innerText = "";
-
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-        let buffer = '';
-
-        while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
-
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop() || ''; // Spara sista raden om den är delad
-
-            for (const line of lines) {
-                const cleanLine = line.trim();
-                if (cleanLine.startsWith('data:')) {
-                    try {
-                        const parsed = JSON.parse(cleanLine.slice(5).trim());
-                        
-                        // Sparar conversation_id från första paketet för nästa fråga
-                        if (parsed.conversation_id) {
-                            conversationId = parsed.conversation_id; 
-                        }
-
-                        // Om raden innehåller text (answer), strömma ut den i gränssnittet
-                        if (parsed.event === 'message' && parsed.answer) {
-                            agentMessageDiv.innerText += parsed.answer;
-                            
-                            // Scrolla ner automatiskt under pågående streaming
-                            const chatBox = document.getElementById('chat-box');
-                            chatBox.scrollTop = chatBox.scrollHeight;
-                        }
-                    } catch (e) {
-                        // Ignorera ljudlöst om något oväntat skulle hända
-                    }
-                }
-            }
-        }
-    } catch (error) {
-        console.error("Fel fångat i frontend:", error);
-        agentMessageDiv.innerText = `Kunde inte hämta svar. Felmeddelande: ${error.message}`;
+/**
+ * Send message when pressing Enter
+ */
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        handleSend();
     }
 }
 
-function appendMessage(text, sender) {
-    const chatBox = document.getElementById('chat-box');
-    const msgDiv = document.createElement('div');
-    msgDiv.classList.add('message', sender);
-    msgDiv.innerText = text;
-    chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-    return msgDiv;
+
+/**
+ * Send predefined suggestion
+ */
+function sendSuggestion(text) {
+    document.getElementById("user-input").value = text;
+    handleSend();
+
+    document.getElementById("suggestions").style.display = "none";
+}
+
+
+/**
+ * Send user message to AI agent
+ */
+async function handleSend() {
+
+    const inputField = document.getElementById("user-input");
+    const query = inputField.value.trim();
+
+
+    if (!query) {
+        return;
+    }
+
+
+    inputField.value = "";
+
+
+    // Render user message
+    appendMessage(query, "user");
+
+
+    // Create empty AI response container
+    const agentMessageDiv = appendMessage("", "agent");
+
+    agentMessageDiv.innerText = "Thinking...";
+
+
+    try {
+
+        const response = await fetch(API_URL, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                query,
+                conversation_id: conversationId
+            })
+        });
+
+
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            throw new Error(errorText);
+        }
+
+
+
+        agentMessageDiv.innerText = "";
+
+
+        await readStream(
+            response,
+            agentMessageDiv
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Chat error:",
+            error
+        );
+
+
+        agentMessageDiv.innerText =
+            "Could not retrieve response. Error: " +
+            error.message;
+    }
+}
+
+
+
+/**
+ * Read Server Sent Events stream from Dify
+ */
+async function readStream(
+    response,
+    messageElement
+) {
+
+
+    const reader = response.body.getReader();
+
+    const decoder = new TextDecoder("utf-8");
+
+
+    let buffer = "";
+
+
+
+    while (true) {
+
+
+        const {
+            done,
+            value
+        } = await reader.read();
+
+
+
+        if (done) {
+            break;
+        }
+
+
+
+        buffer += decoder.decode(
+            value,
+            {
+                stream: true
+            }
+        );
+
+
+
+        const events = buffer.split("\n\n");
+
+
+        buffer = events.pop();
+
+
+
+        for (const event of events) {
+
+
+            const dataLine = event
+                .split("\n")
+                .find(line =>
+                    line.startsWith("data:")
+                );
+
+
+
+            if (!dataLine) {
+                continue;
+            }
+
+
+
+            const json = dataLine
+                .replace("data:", "")
+                .trim();
+
+
+
+            try {
+
+
+                const parsed = JSON.parse(json);
+
+
+
+                if (parsed.conversation_id) {
+
+                    conversationId =
+                        parsed.conversation_id;
+                }
+
+
+
+                if (
+                    parsed.event === "message" &&
+                    parsed.answer
+                ) {
+
+                    messageElement.innerText +=
+                        parsed.answer;
+
+
+                    scrollChat();
+                }
+
+
+
+            } catch (error) {
+
+                console.warn(
+                    "Could not parse SSE event",
+                    error
+                );
+            }
+        }
+    }
+}
+
+
+
+/**
+ * Add message bubble to chat
+ */
+function appendMessage(
+    text,
+    sender
+) {
+
+
+    const chatBox =
+        document.getElementById("chat-box");
+
+
+    const message =
+        document.createElement("div");
+
+
+    message.classList.add(
+        "message",
+        sender
+    );
+
+
+    message.innerText = text;
+
+
+    chatBox.appendChild(message);
+
+
+    scrollChat();
+
+
+    return message;
+}
+
+
+
+/**
+ * Keep chat scrolled to latest message
+ */
+function scrollChat() {
+
+    const chatBox =
+        document.getElementById("chat-box");
+
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
 }
