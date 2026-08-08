@@ -20,9 +20,7 @@ const typedIntro =
     document.getElementById("typed-intro");
 
 const introText =
-    "Hi, I'm Jim. A marketing technology professional. " +
-    "I think I've re-designed my portfolio 50+ times. I've high standards.. I got tired of doing this so now I'm" +
-     "using AI and an agent to answer questions about me. Start by asking something or choose one of the Ask about suggestions";
+    "Hi, I'm Jim. Marketing technology is what I do. Building things is what I enjoy. Instead of scrolling through another portfolio, have a conversation with the AI I built to answer questions about me.";
 
 let loadingMessageTimer = null;
 let loadingMessageIndex = 0;
