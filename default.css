@@ -1221,3 +1221,20 @@ body.is-chatting .topics {
         margin-top: 24px;
     }
 }
+
+/* Keep suggested topics visible during conversation */
+
+body.is-chatting .topics {
+    display: block;
+    margin-top: 24px;
+    opacity: 0.72;
+}
+
+body.is-chatting .topics-title {
+    font-size: 0.68rem;
+}
+
+body.is-chatting .topic {
+    padding: 7px 11px;
+    font-size: 0.76rem;
+}

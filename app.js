@@ -233,10 +233,6 @@ function activateConversationMode() {
     document.body.classList.add(
         "is-chatting"
     );
-
-    if (suggestions) {
-        suggestions.hidden = true;
-    }
 }
 
 
