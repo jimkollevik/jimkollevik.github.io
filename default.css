@@ -242,13 +242,6 @@ body.intro-complete .typed-intro::after {
 
 /* Hide the interaction until the introduction is complete */
 
-body.intro-pending .topics,
-body.intro-pending .chat-section {
-    opacity: 0;
-    transform: translateY(12px);
-    pointer-events: none;
-}
-
 .topics,
 .chat-section {
     transition:
