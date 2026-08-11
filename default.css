@@ -152,10 +152,10 @@ body:not(.is-chatting) .chat-box {
     align-self: flex-start;
     padding-right: 18px;
     color: var(--black);
-    font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: clamp(0.98rem, 1.3vw, 1.08rem);
-    line-height: 1.7;
-    letter-spacing: -0.012em;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    letter-spacing: normal;
     white-space: pre-wrap;
 }
 
@@ -446,7 +446,6 @@ body.is-chatting .topics {
         max-width: 92%;
     }
 
-    .message.agent,
     .typed-intro {
         font-size: 0.96rem;
     }
@@ -476,7 +475,6 @@ body.is-chatting .topics {
         padding: 16px;
     }
 
-    .message.agent,
     .typed-intro {
         font-size: 0.92rem;
         line-height: 1.65;
