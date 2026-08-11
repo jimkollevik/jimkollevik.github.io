@@ -1,200 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Jim Kollevik</title>
-
     <meta
         name="description"
         content="AI-powered portfolio. Ask anything about Jim Kollevik's projects, experience and technical background."
     >
     <meta name="title" content="Jim Kollevik">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-    href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-    rel="stylesheet"
->
-    <link rel="stylesheet" href="default.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="default.css?v=6">
 </head>
 
 <body class="intro-pending">
-
     <main class="page">
+        <section class="chat-section">
+            <div class="terminal" aria-label="Chat with Jim's AI portfolio">
+                <div id="chat-box" class="chat-box">
+                    <article class="message agent intro-message">
+                        <p
+                            id="typed-intro"
+                            class="typed-intro"
+                            aria-label="Hi, I'm Jim."
+                        ></p>
+                    </article>
+                </div>
 
-        <!-- Hero -->
+                <div id="loading-state" class="loading-state hidden">
+                    <span class="loading-dot"></span>
+                    <p>Looking through my portfolio...</p>
+                </div>
 
-<section class="hero" id="hero">
-    <div class="hero-content">
-        <p
-            id="typed-intro"
-            class="typed-intro"
-            aria-label="Hi, I'm Jim."
-        ></p>
-    </div>
-</section>
+                <div class="input-wrapper">
+                    <span class="prompt-symbol" aria-hidden="true">&gt;</span>
 
+                    <input
+                        id="user-input"
+                        type="text"
+                        maxlength="800"
+                        placeholder="Ask me anything..."
+                        onkeypress="handleKeyPress(event)"
+                        autocomplete="off"
+                    >
 
-        <!-- Chat -->
-
-        <section
-            class="chat-section">
-
-            <div
-                id="chat-box"
-                class="chat-box">
-
+                    <button
+                        id="send-button"
+                        type="button"
+                        onclick="handleSend()"
+                        aria-label="Send message"
+                        title="Send (Enter)"
+                    >
+                        <span aria-hidden="true">↵</span>
+                    </button>
+                </div>
             </div>
 
+            <section class="topics">
+                <p class="topics-title">Ask about</p>
 
-            <!-- Loading state -->
+                <div class="topics-row">
+                    <button
+                        class="topic"
+                        onclick="sendSuggestion('Tell me about your experience.')"
+                    >Experience</button>
 
-            <div
-                id="loading-state"
-                class="loading-state hidden">
+                    <button
+                        class="topic"
+                        onclick="sendSuggestion('What projects have you built?')"
+                    >Projects</button>
 
-                <span class="loading-dot"></span>
+                    <button
+                        class="topic"
+                        onclick="sendSuggestion('What technologies do you use?')"
+                    >Tech Stack</button>
 
-                <p>
+                    <button
+                        class="topic"
+                        onclick="sendSuggestion('How do you approach problem solving?')"
+                    >Problem Solving</button>
 
-                    Looking through my portfolio...
+                    <button
+                        class="topic"
+                        onclick="sendSuggestion('Tell me about your AI experience.')"
+                    >AI</button>
 
-                </p>
-
-            </div>
-
-
-            <!-- Input -->
-
-            <div class="input-wrapper">
-
-                <input
-
-                    id="user-input"
-
-                    type="text"
-
-                    maxlength="800"
-
-                    placeholder="Ask me anything..."
-
-                    onkeypress="handleKeyPress(event)"
-
-                    autocomplete="off"
-
-                >
-
-<button
-    id="send-button"
-    type="button"
-    onclick="handleSend()"
-    aria-label="Send message"
->
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-        <path d="M10 15V5"></path>
-        <path d="M6.5 8.5L10 5L13.5 8.5"></path>
-    </svg>
-</button>
-
-            </div>
-
-        <!-- Suggested topics -->
-
-        <section class="topics">
-
-            <p class="topics-title">
-                Ask about
-            </p>
-
-            <div class="topics-row">
-
-                <button
-                    class="topic"
-                    onclick="sendSuggestion('Tell me about your experience.')">
-
-                    Experience
-
-                </button>
-
-
-                <button
-                    class="topic"
-                    onclick="sendSuggestion('What projects have you built?')">
-
-                    Projects
-
-                </button>
-
-
-                <button
-                    class="topic"
-                    onclick="sendSuggestion('What technologies do you use?')">
-
-                    Tech Stack
-
-                </button>
-
-
-                <button
-                    class="topic"
-                    onclick="sendSuggestion('How do you approach problem solving?')">
-
-                    Problem Solving
-
-                </button>
-
-
-                <button
-                    class="topic"
-                    onclick="sendSuggestion('Tell me about your AI experience.')">
-
-                    AI
-
-                </button>
-
-
-                <button
-                    class="topic"
-                    onclick="sendSuggestion('Tell me about your Marketing Automation experience.')">
-
-                    Marketing Automation
-
-                </button>
-
-            </div>
-
+                    <button
+                        class="topic"
+                        onclick="sendSuggestion('Tell me about your Marketing Automation experience.')"
+                    >Marketing Automation</button>
+                </div>
+            </section>
         </section>
-
-        </section>
-
-
-        <!-- Footer -->
-
-        <footer class="footer">
-
-            <p>
-
-                Built with Dify, OpenAI and Vercel.
-
-            </p>
-
-            <p>
-
-                No personal data is stored.
-
-            </p>
-
-        </footer>
-
     </main>
 
-
-    <script src="app.js?v=4"></script>
-
+    <script src="app.js?v=6"></script>
 </body>
 </html>
