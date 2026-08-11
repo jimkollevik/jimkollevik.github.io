@@ -1,6 +1,8 @@
 const API_URL =
     "https://jimkollevik-github-io.vercel.app/api/chat";
 
+const MAX_QUERY_LENGTH = 800;
+
 let conversationId = "";
 let isSending = false;
 
@@ -112,6 +114,16 @@ async function handleSend() {
     if (!query || isSending) {
         return;
     }
+
+    if (query.length > MAX_QUERY_LENGTH) {
+        inputField.setCustomValidity(
+            `Questions can contain at most ${MAX_QUERY_LENGTH} characters.`
+        );
+        inputField.reportValidity();
+        return;
+    }
+
+    inputField.setCustomValidity("");
 
     isSending = true;
 
