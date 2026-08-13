@@ -2,6 +2,17 @@ const API_URL =
     "https://jimkollevik-github-io.vercel.app/api/chat";
 
 const MAX_QUERY_LENGTH = 800;
+const THEME_STORAGE_KEY = "portfolio-theme";
+const systemTheme = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+);
+
+let selectedTheme = getStoredTheme();
+
+applyTheme(
+    selectedTheme ||
+    (systemTheme.matches ? "dark" : "light")
+);
 
 let conversationId = "";
 let isSending = false;
@@ -11,6 +22,7 @@ const inputField = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 const suggestions = document.getElementById("suggestions");
 const loadingState = document.getElementById("loading-state");
+const themeToggle = document.getElementById("theme-toggle");
 
 const loadingMessages = [
     "Looking through my portfolio...",
@@ -35,7 +47,18 @@ initializeChat();
 ========================================================= */
 
 function initializeChat() {
+    updateThemeToggle();
     updateSendButton();
+
+    themeToggle.addEventListener(
+        "click",
+        toggleTheme
+    );
+
+    systemTheme.addEventListener(
+        "change",
+        handleSystemThemeChange
+    );
 
     inputField.addEventListener(
         "input",
@@ -61,6 +84,88 @@ function initializeChat() {
                 .remove("is-focused");
         }
     );
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function getStoredTheme() {
+    try {
+        const storedTheme = window.localStorage.getItem(
+            THEME_STORAGE_KEY
+        );
+
+        return storedTheme === "light" ||
+            storedTheme === "dark"
+            ? storedTheme
+            : null;
+    } catch {
+        return null;
+    }
+}
+
+
+function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+}
+
+
+function toggleTheme() {
+    const currentTheme =
+        document.documentElement.dataset.theme;
+
+    selectedTheme = currentTheme === "dark"
+        ? "light"
+        : "dark";
+
+    try {
+        window.localStorage.setItem(
+            THEME_STORAGE_KEY,
+            selectedTheme
+        );
+    } catch {
+        // The selected theme still applies for this visit.
+    }
+
+    applyTheme(selectedTheme);
+    updateThemeToggle();
+}
+
+
+function handleSystemThemeChange(event) {
+    if (selectedTheme) {
+        return;
+    }
+
+    applyTheme(
+        event.matches ? "dark" : "light"
+    );
+    updateThemeToggle();
+}
+
+
+function updateThemeToggle() {
+    if (!themeToggle) {
+        return;
+    }
+
+    const isDark =
+        document.documentElement.dataset.theme === "dark";
+
+    themeToggle.setAttribute(
+        "aria-pressed",
+        String(isDark)
+    );
+    themeToggle.setAttribute(
+        "aria-label",
+        `Switch to ${isDark ? "light" : "dark"} theme`
+    );
+
+    themeToggle.querySelector(
+        ".theme-toggle-icon"
+    ).textContent = isDark ? "☾" : "☼";
 }
 
 

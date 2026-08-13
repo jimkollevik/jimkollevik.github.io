@@ -1,4 +1,5 @@
 :root {
+    color-scheme: light;
     --white: #ffffff;
     --black: #111111;
     --grey-700: #4f4f4f;
@@ -8,7 +9,26 @@
     --grey-100: #f6f6f6;
     --chat-surface: #fafafa;
     --message-surface: #f1f1f1;
+    --border: #d6d6d6;
+    --topic-surface: transparent;
+    --error: #7a2828;
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --white: #28323e;
+    --black: #f2f4f7;
+    --grey-700: #b8c4d2;
+    --grey-500: #b8c4d2;
+    --grey-300: rgba(255, 255, 255, 0.08);
+    --grey-150: rgba(255, 255, 255, 0.08);
+    --grey-100: #2c3847;
+    --chat-surface: #2c3847;
+    --message-surface: #2c3847;
+    --border: rgba(255, 255, 255, 0.08);
+    --topic-surface: transparent;
+    --error: #f0b5b5;
 }
 
 *,
@@ -62,6 +82,46 @@ body {
     font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
+}
+
+.theme-toggle {
+    position: fixed;
+    z-index: 10;
+    top: clamp(14px, 2vw, 24px);
+    right: clamp(14px, 2vw, 24px);
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: var(--grey-700);
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.7rem;
+    line-height: 1;
+    transition:
+        color 160ms ease,
+        background-color 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease;
+}
+
+.theme-toggle:hover {
+    color: var(--black);
+    background: var(--chat-surface);
+    transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+    transform: scale(0.97);
+}
+
+.theme-toggle-icon {
+    font-size: 1.12rem;
+    line-height: 1;
 }
 
 .page {
@@ -160,7 +220,7 @@ body:not(.is-chatting) .chat-box {
 }
 
 .message.agent.error {
-    color: #7a2828;
+    color: var(--error);
 }
 
 .message.agent.is-waiting {
@@ -294,8 +354,8 @@ body.intro-complete .typed-intro::after {
     gap: 14px;
     padding: 0 10px 0 clamp(16px, 2vw, 24px);
     background: var(--chat-surface);
-    border-top: 1px solid var(--grey-300);
-    border-bottom: 1px solid var(--grey-300);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .prompt-symbol {
@@ -384,17 +444,15 @@ body.intro-complete .typed-intro::after {
 .topic {
     padding: 6px 0;
     color: var(--grey-700);
-    background: transparent;
-    border-bottom: 1px solid var(--grey-300);
+    background: var(--topic-surface);
     cursor: pointer;
     font-size: 0.72rem;
     line-height: 1.2;
-    transition: color 160ms ease, border-color 160ms ease;
+    transition: color 160ms ease;
 }
 
 .topic:hover {
     color: var(--black);
-    border-color: var(--black);
 }
 
 body.is-chatting .topics {
